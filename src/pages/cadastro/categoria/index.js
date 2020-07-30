@@ -24,16 +24,16 @@ function CadastroCategoria(){
         const { getAttribute, value } = infosDoEvento.target;
 
         /* FUNCIONA COM COMPONENTE */
-        // setValue(
-        //     infosDoEvento.target.getAttribute('name'), 
-        //     infosDoEvento.target.value
-        //     );
+        setValue(
+            infosDoEvento.target.getAttribute('name'), 
+            infosDoEvento.target.value
+            );
 
         /* NÃO FUNCIONAR COM COMPONENTE */
-        setValue(
-            getAttribute('name'), 
-            value
-            );
+        // setValue(
+        //     getAttribute('name'), 
+        //     value
+        //     );
     }
 
     return (
