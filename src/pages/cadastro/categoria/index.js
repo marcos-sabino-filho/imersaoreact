@@ -21,19 +21,16 @@ function CadastroCategoria(){
     }
 
     function handleChangeCampo(infosDoEvento){
-        const { getAttribute, value } = infosDoEvento.target;
-
-        /* FUNCIONA COM COMPONENTE */
-        setValue(
-            infosDoEvento.target.getAttribute('name'), 
-            infosDoEvento.target.value
-            );
-
-        /* NÃO FUNCIONAR COM COMPONENTE */
+        /* SEM COMPONENTE */
+        // const { getAttribute, value } = infosDoEvento.target;
         // setValue(
         //     getAttribute('name'), 
         //     value
         //     );
+
+        /* COM COMPONENTE */
+        const { name, value } = infosDoEvento.target;
+        setValue(name, value);
     }
 
     return (
@@ -82,16 +79,6 @@ function CadastroCategoria(){
                     value={values.cor}  
                     onChange={handleChangeCampo}
                 />
-                {/* <div>
-                    <label>
-                        Cor:
-                        <input 
-                        name="cor" 
-                        type="color" 
-                        value={values.cor} 
-                        onChange={handleChangeCampo} />
-                    </label>
-                </div> */}
 
                 <button>
                 Cadastrar
