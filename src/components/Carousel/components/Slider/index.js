@@ -17,6 +17,7 @@ const Container = styled.ul`
     transform: initial;
     &:before {
       font-size: 30px;
+      color: ${props => props.cor};
     }
   }
   
@@ -38,28 +39,15 @@ export const SliderItem = styled.li`
   }
 `;
 
-function CustomArrow(props) {
-  const { className, style, onClick, cor } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, background: cor }}
-      onClick={onClick}
-    />
-  );
-}
-
 const Slider = (props) => (
-  <Container>
+  <Container cor={props.cor}>
     <SlickSlider {...{
       dots: false,
       infinite: true,
       speed: 300,
       centerMode: false,
       variableWidth: true,
-      adaptiveHeight: true,
-      nextArrow: <CustomArrow cor={props.cor} />,
-      prevArrow: <CustomArrow cor={props.cor} />
+      adaptiveHeight: true
     }}
     >
       {props.children}
