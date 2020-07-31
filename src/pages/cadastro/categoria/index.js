@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MasterPage from '../../../components/MasterPage';
 import FormField from '../../../components/FormField';
 import styled from 'styled-components';
+import loadingGif from '../../../assets/img/loading.gif';
 
 function CadastroCategoria() {
   
   const valoresIniciais = {
+    id: 0,
     nome: '',
     descricao: '',
     cor: '#000',
@@ -17,6 +19,13 @@ function CadastroCategoria() {
 
   const LiEstilizado = styled.li`
     color: ${props => props.cor};
+  `;
+
+  const ImagemLoading = styled.img`
+    width:100px;
+    height:100px;
+    background-image: 
+            url(${props => props.src});
   `;
 
   function setValue(chave, valor) {
@@ -38,6 +47,21 @@ function CadastroCategoria() {
     const { name, value } = infosDoEvento.target;
     setValue(name, value);
   }
+
+  useEffect(() => {
+    if(window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:8080/categorias'; 
+      fetch(URL)
+       .then(async (respostaDoServer) =>{
+        if(respostaDoServer.ok) {
+          const resposta = await respostaDoServer.json();
+          setTimeout(()=>{setCategorias(resposta)}, 4*1000);
+          return; 
+        }
+        throw new Error('Não foi possível pegar os dados');
+       })
+    }    
+  }, []);
 
   return (
     <MasterPage>
@@ -85,6 +109,12 @@ function CadastroCategoria() {
           Cadastrar
         </button>
       </form>
+
+    {categorias.length === 0 && <div>
+    {/* CARREGANDO... */}  
+    <ImagemLoading alt="Loading..." src={loadingGif} />
+
+    </div>}
 
       <ul>
         {categorias.map((categoria, indice) => (
