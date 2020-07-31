@@ -78,12 +78,12 @@ function FormField({
     return (
         <FormFieldWrapper>
       <Label>
-      <Input 
-                as={tag}
-                name={name} 
-                type={type} 
-                value={value} 
-                onChange={onChange} />
+        <Input 
+            as={tag}
+            name={name} 
+            type={type} 
+            value={value} 
+            onChange={onChange} />
         <Label.Text>
           {label}
         </Label.Text>
