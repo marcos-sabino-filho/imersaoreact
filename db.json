@@ -3,13 +3,13 @@
         {
             "id":1,
             "nome": "Front End",
-            "descricao": "Uma categoria",
+            "descricao": "Uma categoria 1",
             "cor": "#cdcdcd"
         },
         {
             "id":2,
             "nome": "Back End",
-            "descricao": "Outra categoria",
+            "descricao": "Outra categoria 2",
             "cor": "#ababab"
         }
     ]
