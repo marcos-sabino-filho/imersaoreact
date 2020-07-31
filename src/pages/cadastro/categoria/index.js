@@ -51,7 +51,7 @@ function CadastroCategoria() {
   useEffect(() => {
 
       const URL = window.location.href.includes('localhost')
-      ?'https://localhost:8080/categorias'
+      ?'http://localhost:8080/categorias'
       :'https://daviflix-marcossabinofilho.herokuapp.com/categorias';
 
       fetch(URL)
