@@ -9,7 +9,7 @@ function CadastroCategoria() {
   
   const valoresIniciais = {
     id: 0,
-    nome: '',
+    titulo: '',
     descricao: '',
     cor: '#000',
   };
@@ -67,7 +67,7 @@ function CadastroCategoria() {
     <MasterPage>
       <h1>
         Cadastro de Categoria:
-        {values.nome}
+        {values.titulo}
       </h1>
 
       <form onSubmit={function handleSubmit(infosDoEvento) {
@@ -83,9 +83,9 @@ function CadastroCategoria() {
       >
         <FormField
           label="Nome da Categoria:"
-          name="nome"
+          name="titulo"
           type="text"
-          value={values.nome}
+          value={values.titulo}
           onChange={handleChangeCampo}
         />
 
@@ -119,7 +119,7 @@ function CadastroCategoria() {
       <ul>
         {categorias.map((categoria, indice) => (
           <LiEstilizado key={`${categoria}${indice}`} cor={categoria.cor}>
-            {categoria.nome}
+            {categoria.titulo}
           </LiEstilizado>
         ))}
       </ul>
