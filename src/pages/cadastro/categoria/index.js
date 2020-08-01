@@ -6,9 +6,11 @@ import styled from 'styled-components';
 import loadingGif from '../../../assets/img/loading.gif';
 import useForm from './../../../hooks/useForm';
 import categoriaRepo from '../../../repository/categoria';
+import Button from '../../../components/Button';
+import './botao.css';
 
 function CadastroCategoria() {
-  
+
   const valoresIniciais = {
     id: 0,
     titulo: '',
@@ -82,9 +84,9 @@ function CadastroCategoria() {
           onChange={handleChangeCampo}
         />
 
-        <button>
-          Cadastrar
-        </button>
+        <Button className="ButtonLink">
+            Cadastrar
+        </Button>
       </form>
 
     {categorias.length === 0 && <div>

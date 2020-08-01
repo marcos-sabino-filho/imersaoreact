@@ -3,10 +3,13 @@ import MasterPage from './../../../components/MasterPage';
 import { Link } from 'react-router-dom';
 import categoriaRepo from '../../../repository/categoria';
 // import videosRepo from '../../../repository/videos';
-// import useForm from './../../../hooks/useForm';
+import useForm from './../../../hooks/useForm';
 import SelectEstilo from '../../../components/Select/index';
+import FormField from '../../../components/FormField';
 import loadingGif from '../../../assets/img/loading_table.gif';
 import styled from 'styled-components';
+import Button from '../../../components/Button';
+import './botao.css';
 
 function CadastroVideo(){
 
@@ -17,7 +20,14 @@ function CadastroVideo(){
                 url(${props => props.src});
     `;
 
-    // const { values, handleChangeCampo, clearForm } = useForm(valoresIniciaisVideos);
+    const valoresIniciaisVideos = {
+        id: 0,
+        titulo: '',
+        categoriaId: 0,
+        url: ''
+    };
+
+    const { values, handleChangeCampo, clearForm } = useForm(valoresIniciaisVideos);
 
     const [ListaCategorias, setListaCategorias] = useState([]);
     const [categoriaSelecionadaComVideos, setVideosComCategoria] = useState();
@@ -35,7 +45,7 @@ function CadastroVideo(){
             });
     }
   
-    useEffect(() => {
+    useEffect(() => { 
         categoriaRepo
         .getAll()
         .then((respostaDoServer) => {
@@ -50,20 +60,51 @@ function CadastroVideo(){
         <MasterPage>
             <h1>Cadastro de vídeos</h1>
 
+            <form onSubmit={function handleSubmit(infosDoEvento) {
+                infosDoEvento.preventDefault();
+
+                // setCategorias([
+                // ...categorias,
+                // values,
+                // ]);
+
+                clearForm();
+            }}
+            >
+                <SelectEstilo
+                    label="Selecione a Categoria"
+                    name="listaCategorias"
+                    dados={ListaCategorias}
+                    onChange={SelecionarCategoria} />
+
+                <FormField
+                    label="Título do vídeo:"
+                    name="titulo"
+                    type="text"
+                    value={values.titulo}
+                    onChange={handleChangeCampo} />
+
+                <FormField
+                    label="Título do vídeo:"
+                    name="url"
+                    type="text"
+                    value={values.url}
+                    onChange={handleChangeCampo} />
+            </form>
+
+            <Button className="ButtonMasterPage">
+                Cadastrar Videos
+            </Button>
+
             <Link to="/cadastro/categoria">
                 Cadastrar Categoria
             </Link>
 
-            <SelectEstilo 
-            name="listaCategorias"
-            dados={ListaCategorias}
-            onChange={SelecionarCategoria} />
-
-            <table>
+            <table className="purpleHorizon">
                 <thead>
                     <tr>
-                        <td>Título</td>
-                        <td>Url</td>
+                        <th>Título</th>
+                        <th>Url</th>
                     </tr>
                 </thead>
                 {!carregandoVideosDaCategoria && 
@@ -76,7 +117,7 @@ function CadastroVideo(){
                         <tbody key={chaveTbody}>
                             <tr key={chaveTR}>
                                 <td>{video.titulo}</td>
-                                <td>{video.url}</td>
+                                <td><a href={video.url}>{video.url}</a></td>
                             </tr>
                         </tbody>
                     )

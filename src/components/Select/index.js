@@ -1,14 +1,31 @@
-import React from 'react';
-import { SelectBase } from './style';
+import React, { useState } from 'react';
+import { FormFieldWrapper, Label, SelectBase } from './style';
 import PropTypes from 'prop-types';
 
-function Select({ name, dados, onChange }){
+function Select({ label, name, dados, onChange }){
+
+    const [valorSelecionado, SelecionarValor] = useState(0);
+
+    function Selectionar(evento){
+        SelecionarValor(evento.target.value);
+        onChange(evento);
+    }
+
     return (
-        <SelectBase name={name} onChange={onChange}>
-        {dados.map((item, indice) => (
-            <option key={item.id} value={item.id}>{item.titulo}</option>
-        ))}
-        </SelectBase>
+    <FormFieldWrapper>
+        <Label>
+            <SelectBase name={name} onChange={Selectionar} value={valorSelecionado}>
+                {dados.map((item, indice) => (
+                    <option key={item.id} value={item.id}>{item.titulo}</option>
+                ))}
+            </SelectBase>
+            <Label.Text>
+                {label}
+            </Label.Text>
+        </Label>
+    </FormFieldWrapper>
+
+        
     );
 }
 

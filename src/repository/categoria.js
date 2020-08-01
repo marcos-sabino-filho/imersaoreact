@@ -3,7 +3,7 @@ import API from '../api';
 
 const ListaCategoriaPadrao = [{
     id: 0,
-    titulo: '--- Selecione uma categoria ---',
+    titulo: ' ',
     cor: '#ffffff',
     link_extra: {
         text:'',
@@ -25,7 +25,7 @@ async function getById(id){
 
 const ListaCategoriaComVideosIniciais = {
     id: 0,
-    titulo: '--- Selecione uma categoria ---',
+    titulo: ' ',
     cor: '#ffffff',
     link_extra: {
         text:'',
