@@ -5,7 +5,8 @@ async function GET(caminhoUrlGet){
                 const resposta = await respostaDoServer.json();
                 return resposta;
             }
-            throw new Error('Não foi possível pegar os dados');
+            return null;
+            // throw new Error('Não foi possível pegar os dados');
         });
 }
 
@@ -22,8 +23,9 @@ async function CREATE(caminhoUrlPOST, objeto) {
           const resposta = await respostaDoServidor.json();
           return resposta;
         }
+        return null;
   
-        throw new Error('Não foi possível cadastrar os dados :(');
+        // throw new Error('Não foi possível cadastrar os dados :(');
       });
   }
 

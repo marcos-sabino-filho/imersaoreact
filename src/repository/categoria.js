@@ -1,20 +1,50 @@
 import config from '../config';
 import API from '../api';
 
+const ListaCategoriaPadrao = [{
+    id: 0,
+    titulo: '--- Selecione uma categoria ---',
+    cor: '#ffffff',
+    link_extra: {
+        text:'',
+        url:''
+    }
+}];
+
 async function getAll(){
-    return await API.GET(`${config.URL_BACKEND_TOP}/categorias`);
+    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias`)
+    return resposta ? ListaCategoriaPadrao.concat(resposta) : ListaCategoriaPadrao;
 }
 
 async function getById(id){
-    return await API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}`);
+    const resposta =  API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}`);
+    return resposta ? resposta : ListaCategoriaPadrao;
 }
 
+const ListaCategoriaComVideosIniciais = {
+    id: 0,
+    titulo: '--- Selecione uma categoria ---',
+    cor: '#ffffff',
+    link_extra: {
+        text:'',
+        url:''
+    },
+    videos: [{
+        id: 0,
+        titulo: 'Sem vídeos nessa categoria',
+        categoriaId: 0,
+        url: ''
+    }]
+};
+
 async function getAllWithVideos(){
-    return await API.GET(`${config.URL_BACKEND_TOP}/categorias?_embed=videos`);
+    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias?_embed=videos`);
+    return resposta ? resposta : ListaCategoriaComVideosIniciais;
 }
 
 async function getByIdWithVideos(id){
-    return await API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}/?_embed=videos`);
+    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}?_embed=videos`);
+    return resposta ? resposta : ListaCategoriaComVideosIniciais;
 }
 
 export default {
