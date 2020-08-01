@@ -17,58 +17,22 @@ function CadastroVideo(){
                 url(${props => props.src});
     `;
 
-    // const categoriaInicial = 0;
-    const ListaCategoriaInicial = [{
-        id: 0,
-        titulo: '--- Selecione uma categoria ---',
-        cor: '#ffffff',
-        link_extra: {
-            text:'',
-            url:''
-        }
-    }];
-    const ListaVideosIniciais = {
-        id: 0,
-        titulo: '--- Selecione uma categoria ---',
-        cor: '#ffffff',
-        link_extra: {
-            text:'',
-            url:''
-        },
-        videos: [{
-            id: 0,
-            titulo: 'Sem vídeos nessa categoria',
-            categoriaId: 0,
-            url: ''
-        }]
-    };
-
     // const { values, handleChangeCampo, clearForm } = useForm(valoresIniciaisVideos);
 
     const [ListaCategorias, setListaCategorias] = useState([]);
-    // const [categoriaSelecionada, setCategoria] = useState(categoriaInicial);
     const [categoriaSelecionadaComVideos, setVideosComCategoria] = useState();
     const [carregandoVideosDaCategoria, setLoadingParaVideos] = useState(false);
 
     function SelecionarCategoria(evento){
-        // setCategoria(evento.target.value);
         categoriaRepo
         .getByIdWithVideos(evento.target.value)
         .then((respostaDoServer) => {
             setLoadingParaVideos(true);
-            // console.log(`carregandoVideosDaCategoria: ${carregandoVideosDaCategoria}`);
-            // setTimeout só pra aparecer o gif do loading
             setTimeout(()=>{
-                // console.log(respostaDoServer);
-                respostaDoServer
-                    ?setVideosComCategoria(respostaDoServer)
-                    :setVideosComCategoria(ListaVideosIniciais);
+                setVideosComCategoria(respostaDoServer)
                 setLoadingParaVideos(false);
-                // console.log(`carregandoVideosDaCategoria: ${carregandoVideosDaCategoria}`);
             }, 2*1000);
             });
-            
-            
     }
   
     useEffect(() => {
@@ -77,15 +41,10 @@ function CadastroVideo(){
         .then((respostaDoServer) => {
             // setTimeout só pra aparecer o gif do loading
             setTimeout(()=>{
-                // setListaCategorias(ListaCategoriaInicial.concat(respostaDoServer))}, 2*1000);
                 setListaCategorias(respostaDoServer)
             }, 2*1000);
         });
     }, []);
-
-    useEffect(()=>{
-
-    },[ListaCategoriaInicial]);
 
     return (
         <MasterPage>

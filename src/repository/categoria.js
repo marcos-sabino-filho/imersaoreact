@@ -12,13 +12,15 @@ const ListaCategoriaPadrao = [{
 }];
 
 async function getAll(){
-    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias`)
-    return resposta ? ListaCategoriaPadrao.concat(resposta) : ListaCategoriaPadrao;
+    return await API.GET(`${config.URL_BACKEND_TOP}/categorias`)
+    .then((resposta) => {return ListaCategoriaPadrao.concat(resposta);})
+    .catch(() => {return ListaCategoriaPadrao;});
 }
 
 async function getById(id){
-    const resposta =  API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}`);
-    return resposta ? resposta : ListaCategoriaPadrao;
+    return API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}`)
+    .then((resposta) => {return ListaCategoriaPadrao.concat(resposta);})
+    .catch((err) => { return ListaCategoriaPadrao; });
 }
 
 const ListaCategoriaComVideosIniciais = {
@@ -38,13 +40,15 @@ const ListaCategoriaComVideosIniciais = {
 };
 
 async function getAllWithVideos(){
-    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias?_embed=videos`);
-    return resposta ? resposta : ListaCategoriaComVideosIniciais;
+    return await API.GET(`${config.URL_BACKEND_TOP}/categorias?_embed=videos`)
+    .then((resposta) => {return resposta;})
+    .catch(() => {return ListaCategoriaComVideosIniciais;});
 }
 
 async function getByIdWithVideos(id){
-    const resposta = await API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}?_embed=videos`);
-    return resposta ? resposta : ListaCategoriaComVideosIniciais;
+    return await API.GET(`${config.URL_BACKEND_TOP}/categorias/${id}?_embed=videos`)
+    .then((resposta) => {return resposta;})
+    .catch(() => {return ListaCategoriaComVideosIniciais;});
 }
 
 export default {
