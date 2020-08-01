@@ -4,6 +4,8 @@ import MasterPage from '../../../components/MasterPage';
 import FormField from '../../../components/FormField';
 import styled from 'styled-components';
 import loadingGif from '../../../assets/img/loading.gif';
+import useForm from './../../../hooks/useForm';
+import categoriaRepo from '../../../repository/categoria';
 
 function CadastroCategoria() {
   
@@ -11,11 +13,12 @@ function CadastroCategoria() {
     id: 0,
     titulo: '',
     descricao: '',
-    cor: '#000',
+    cor: '#000'
   };
 
+  const { values, handleChangeCampo, clearForm } = useForm(valoresIniciais);
+
   const [categorias, setCategorias] = useState([]);
-  const [values, setValues] = useState(valoresIniciais);
 
   const LiEstilizado = styled.li`
     color: ${props => props.cor};
@@ -28,42 +31,13 @@ function CadastroCategoria() {
             url(${props => props.src});
   `;
 
-  function setValue(chave, valor) {
-    setValues({
-      ...values,
-      [chave]: valor,
-    });
-  }
-
-  function handleChangeCampo(infosDoEvento) {
-    /* SEM COMPONENTE */
-    // const { getAttribute, value } = infosDoEvento.target;
-    // setValue(
-    //     getAttribute('name'),
-    //     value
-    //     );
-
-    /* COM COMPONENTE */
-    const { name, value } = infosDoEvento.target;
-    setValue(name, value);
-  }
-
   useEffect(() => {
-
-      const URL = window.location.href.includes('localhost')
-      ?'http://localhost:8080/categorias'
-      :'https://daviflix-marcossabinofilho.herokuapp.com/categorias';
-
-      fetch(URL)
-       .then(async (respostaDoServer) =>{
-        if(respostaDoServer.ok) {
-          const resposta = await respostaDoServer.json();
-          setTimeout(()=>{setCategorias(resposta)}, 4*1000);
-          return; 
-        }
-        throw new Error('Não foi possível pegar os dados');
-       })
-    
+      categoriaRepo
+      .getAll()
+      .then((respostaDoServer) => {
+        // setTimeout só pra aparecer o gif do loading
+        setTimeout(()=>{setCategorias(respostaDoServer)}, 4*1000);
+      });
   }, []);
 
   return (
@@ -81,7 +55,7 @@ function CadastroCategoria() {
           values,
         ]);
 
-        setValues(valoresIniciais);
+        clearForm();
       }}
       >
         <FormField

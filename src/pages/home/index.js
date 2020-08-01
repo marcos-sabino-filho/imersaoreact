@@ -5,15 +5,10 @@ import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
 import Footer from '../../components/Footer';
 
-const URLNova = window.location.href.includes('localhost')
-      ?'http://localhost:8080/categorias?embed=videos'
-      :'https://daviflix-marcossabinofilho.herokuapp.com/categorias?embed=videos';
-
 function Home() {
   return (
     <div style={{ background: "#141414" }}>
       <Menu />
-
 
       <BannerMain
         videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
