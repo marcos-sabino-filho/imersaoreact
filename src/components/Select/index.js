@@ -15,7 +15,7 @@ function Select({ label, name, dados, onChange }){
     <FormFieldWrapper>
         <Label>
             <SelectBase name={name} onChange={Selectionar} value={valorSelecionado}>
-                {dados.map((item, indice) => (
+                {dados.map((item) => (
                     <option key={item.id} value={item.id}>{item.titulo}</option>
                 ))}
             </SelectBase>

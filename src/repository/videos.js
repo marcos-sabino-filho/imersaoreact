@@ -10,6 +10,7 @@ async function getById(id) {
 }
 
 async function create(objeto) {
+    // console.log(objeto);
     return await API.CREATE(`${config.URL_BACKEND_TOP}/videos?_embed=videos`, objeto)
 }
 
