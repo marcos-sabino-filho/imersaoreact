@@ -1,3 +1,7 @@
+/*
+ BACKEND PUBLICADO NO SERVIDOR
+ https://dashboard.heroku.com/apps
+*/
 async function GET(caminhoUrlGet){
     return fetch(caminhoUrlGet)
         .then(async (respostaDoServer) =>{
@@ -27,7 +31,7 @@ async function CREATE(caminhoUrlPOST, objeto) {
           return resposta;
         }
         // return null;
-  
+
         throw new Error('Não foi possível cadastrar os dados :(');
       })
       .catch((err) => {
